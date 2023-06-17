@@ -1,0 +1,45 @@
+[package]
+name = "mega-cli"
+version = "0.1.0"
+edition = "2021"
+authors = ["Nicolas Polomack <nicolas@polomack.eu>"]
+description = "A command-line tool for interacting with MEGA"
+repository = "https://github.com/Hirevo/mega-cli-rs"
+documentation = "https://docs.rs/mega-cli"
+keywords = ["mega", "api", "cloud", "storage", "cli"]
+categories = ["command-line-utilities", "web-programming", "web-programming::http-client"]
+license = "MIT OR Apache-2.0"
+
+[dependencies]
+mega = "0.7.0"
+reqwest = "0.11.18"
+
+# Async runtime
+tokio = { version = "1.28.2", features = ["macros", "rt-multi-thread", "signal", "process"] }
+tokio-util = { version = "0.7.8", features = ["compat"] }
+
+# CLI utils
+clap = { version = "4.3.4", features = ["derive", "env"] }
+confy = "0.5.1"
+console = "0.15.7"
+indicatif = "0.17.5"
+dialoguer = "0.10.4"
+text_trees = "0.1.2"
+shell-words = "1.1.0"
+
+# Error handling
+color-eyre = "0.6.2"
+
+# Async utils
+futures = "0.3.28"
+sluice = "0.5.5"
+async-read-progress = "0.2.0"
+
+# Data formats
+url = { version = "2.4.0", features = ["serde"] }
+serde = "1.0.164"
+chrono = "0.4.26"
+
+# Miscellaneous
+filetime = "0.2.21"
+once_cell = "1.18.0"

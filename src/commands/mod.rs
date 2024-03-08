@@ -43,6 +43,8 @@ pub enum Command {
     Delete(delete::Opts),
     /// Display MEGA storage events as they happen
     Follow(follow::Opts),
+    /// Compare a local file with a remote node
+    Compare(compare::Opts),
 }
 
 impl Command {
@@ -58,6 +60,7 @@ impl Command {
             Command::Rename(opts) => opts.may_need_user_session(),
             Command::Delete(opts) => opts.may_need_user_session(),
             Command::Follow(opts) => opts.may_need_user_session(),
+            Command::Compare(opts) => opts.may_need_user_session(),
         }
     }
 }

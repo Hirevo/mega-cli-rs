@@ -24,14 +24,14 @@ pub struct Opts {
     /// Path to output file
     #[arg(long, short)]
     output: Option<PathBuf>,
-    /// The shared MEGA link from which to download nodes.
+    /// The shared MEGA link from which to download nodes
     #[arg(long, short)]
     link: Option<String>,
-    /// The password to use to decrypt the shared link, if such is used.
+    /// The password to use to decrypt the shared link, if such is used
     #[arg(long, short)]
     password: Option<String>,
     /// The maximum number of parallel file downloads
-    #[arg(long, short, default_value = "4")]
+    #[arg(long, short = 'P', default_value = "4")]
     parallel: usize,
     /// Path (eg. `/Root/folder/file.txt`) or handle (eg. `H:gZlB3JxS`) to the MEGA node to download
     path: String,

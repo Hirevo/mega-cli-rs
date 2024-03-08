@@ -14,12 +14,12 @@ use crate::Result;
 #[command(author, rename_all = "kebab-case")]
 pub struct Opts {
     /// Show node handles (eg. `H:gZlB3JxS`)
-    #[arg(long)]
+    #[arg(long, short = 'H')]
     show_handles: bool,
-    /// The shared MEGA link from which to list nodes.
+    /// The shared MEGA link from which to list nodes
     #[arg(long, short)]
     link: Option<String>,
-    /// The password to use to decrypt the shared link, if such is used.
+    /// The password to use to decrypt the shared link, if such is used
     #[arg(long, short)]
     password: Option<String>,
     /// Path (eg. `/Root/folder`) or handle (eg. `H:gZlB3JxS`) to the MEGA folder to list from

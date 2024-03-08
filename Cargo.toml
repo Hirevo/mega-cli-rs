@@ -34,6 +34,7 @@ color-eyre = "0.6.2"
 futures = "0.3.28"
 sluice = "0.5.5"
 async-read-progress = "0.2.0"
+async-channel = "1.8.0"
 
 # Data formats
 url = { version = "2.4.0", features = ["serde"] }

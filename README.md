@@ -21,22 +21,22 @@
 About
 -----
 
-`mega-cli-rs` (`mega-cli` on [crates.io] and once installed) is an (unofficial) command-line tool for interacting with [MEGA].  
+`mega-cli-rs` (`mega-cli` on [crates.io] and once installed) is an (unofficial) command-line tool for interacting with [MEGA][mega.nz].  
 
 It aims to implement a lot (if not all) of the features offered by [MEGAcmd] or [megatools].  
 
 [crates.io]: https://crates.io/crates/mega-cli
-[MEGA]: https://mega.nz
+[mega.nz]: https://mega.nz
 [MEGAcmd]: https://github.com/meganz/MEGAcmd
 [megatools]: https://megatools.megous.com
 
-It is written in Rust and uses the [mega] crate for its MEGA interactions.  
+It is written in Rust and uses the [mega][mega-rs] crate for its MEGA interactions.  
 
-It serves as a real-life test for the [mega] crate, to assess metrics like performance, API ergonomics and feature-completeness.  
+It serves as a real-life test for the [mega][mega-rs] crate, to assess metrics like performance, API ergonomics and feature-completeness.  
 
 It can also serve as a large-scale example of how to use and get the most out of the library.
 
-[mega]: https://github.com/Hirevo/mega-rs
+[mega-rs]: https://github.com/Hirevo/mega-rs
 
 Installation
 ------------

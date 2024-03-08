@@ -88,7 +88,10 @@ where
             E: de::Error,
         {
             let Ok(value) = u64::try_from(value) else {
-                return Err(de::Error::invalid_value(de::Unexpected::Signed(i64::from(value)), &self));
+                return Err(de::Error::invalid_value(
+                    de::Unexpected::Signed(i64::from(value)),
+                    &self,
+                ));
             };
             self.visit_u64(value)
         }
@@ -179,7 +182,10 @@ where
             E: de::Error,
         {
             let Ok(value) = u64::try_from(value) else {
-                return Err(de::Error::invalid_value(de::Unexpected::Signed(i64::from(value)), &self));
+                return Err(de::Error::invalid_value(
+                    de::Unexpected::Signed(i64::from(value)),
+                    &self,
+                ));
             };
             self.visit_u64(value)
         }

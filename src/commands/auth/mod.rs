@@ -1,4 +1,5 @@
 use std::process::ExitCode;
+use std::sync::Arc;
 
 use clap::Subcommand;
 
@@ -30,7 +31,11 @@ impl Command {
     }
 }
 
-pub async fn handle(config: Config, mega: &mut mega::Client, opts: Command) -> Result<ExitCode> {
+pub async fn handle(
+    config: Config,
+    mega: &mut Arc<mega::Client>,
+    opts: Command,
+) -> Result<ExitCode> {
     match opts {
         Command::Login(opts) => login::handle(config, mega, opts).await,
         Command::Logout(opts) => logout::handle(config, mega, opts).await,

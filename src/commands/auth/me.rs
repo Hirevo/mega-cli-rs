@@ -20,7 +20,7 @@ impl Opts {
     }
 }
 
-pub async fn handle(_: Config, mega: &mut mega::Client, _: Opts) -> Result<ExitCode> {
+pub async fn handle(_: Config, mega: &mega::Client, _: Opts) -> Result<ExitCode> {
     let maybe_bar = USER_ATTENDED.then(|| {
         let bar = ProgressBar::new_spinner();
         bar.set_style(utils::terminal::spinner_style());

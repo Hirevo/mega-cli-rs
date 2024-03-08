@@ -1,8 +1,10 @@
 use std::process::ExitCode;
+use std::sync::Arc;
 
 use clap::Subcommand;
 
 pub mod auth;
+pub mod compare;
 pub mod config;
 pub mod delete;
 pub mod follow;
@@ -60,7 +62,11 @@ impl Command {
     }
 }
 
-pub async fn handle(config: Config, mega: &mut mega::Client, opts: Command) -> Result<ExitCode> {
+pub async fn handle(
+    config: Config,
+    mega: &mut Arc<mega::Client>,
+    opts: Command,
+) -> Result<ExitCode> {
     match opts {
         Command::Auth(opts) => auth::handle(config, mega, opts).await,
         Command::Config(opts) => config::handle(config, mega, opts).await,
@@ -72,5 +78,6 @@ pub async fn handle(config: Config, mega: &mut mega::Client, opts: Command) -> R
         Command::Rename(opts) => rename::handle(config, mega, opts).await,
         Command::Delete(opts) => delete::handle(config, mega, opts).await,
         Command::Follow(opts) => follow::handle(config, mega, opts).await,
+        Command::Compare(opts) => compare::handle(config, mega, opts).await,
     }
 }

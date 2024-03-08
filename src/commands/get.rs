@@ -1,5 +1,6 @@
 use std::path::{Path, PathBuf};
 use std::process::ExitCode;
+use std::sync::Arc;
 use std::time::Duration;
 
 use tokio::fs::{self, File};
@@ -42,7 +43,7 @@ impl Opts {
     }
 }
 
-pub async fn handle(_: Config, mega: &mega::Client, opts: Opts) -> Result<ExitCode> {
+pub async fn handle(_: Config, mega: &Arc<mega::Client>, opts: Opts) -> Result<ExitCode> {
     let nodes = {
         let maybe_bar = USER_ATTENDED.then(|| {
             let bar = ProgressBar::new_spinner();

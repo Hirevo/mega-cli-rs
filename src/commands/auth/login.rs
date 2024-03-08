@@ -1,8 +1,9 @@
 use std::process::ExitCode;
+use std::sync::Arc;
 use std::time::Duration;
 
 use clap::Parser;
-use color_eyre::eyre::Context;
+use color_eyre::eyre::{Context, ContextCompat};
 use dialoguer::theme::ColorfulTheme;
 use dialoguer::{Input, Password};
 use indicatif::ProgressBar;
@@ -22,7 +23,7 @@ impl Opts {
     }
 }
 
-pub async fn handle(mut config: Config, mega: &mut mega::Client, _: Opts) -> Result<ExitCode> {
+pub async fn handle(mut config: Config, mega: &mut Arc<mega::Client>, _: Opts) -> Result<ExitCode> {
     let theme = ColorfulTheme::default();
 
     let email: String = Input::with_theme(&theme)
@@ -40,6 +41,8 @@ pub async fn handle(mut config: Config, mega: &mut mega::Client, _: Opts) -> Res
         bar.enable_steady_tick(Duration::from_millis(75));
         bar
     });
+
+    let mega = Arc::get_mut(mega).context("could not mutably borrow MEGA client")?;
 
     let result = mega.login(&email, &password, None).await;
 

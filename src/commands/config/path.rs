@@ -17,7 +17,7 @@ impl Opts {
     }
 }
 
-pub async fn handle(_: Config, _: &mut mega::Client, _: Opts) -> Result<ExitCode> {
+pub async fn handle(_: Config, _: &mega::Client, _: Opts) -> Result<ExitCode> {
     let path = confy::get_configuration_file_path(CONFIG_NAME, None)?;
 
     if *USER_ATTENDED {

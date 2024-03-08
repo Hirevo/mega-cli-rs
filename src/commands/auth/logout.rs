@@ -1,8 +1,9 @@
 use std::process::ExitCode;
+use std::sync::Arc;
 use std::time::Duration;
 
 use clap::Parser;
-use color_eyre::eyre::Context;
+use color_eyre::eyre::{Context, ContextCompat};
 use indicatif::ProgressBar;
 
 use crate::config::{Config, CONFIG_NAME};
@@ -20,7 +21,7 @@ impl Opts {
     }
 }
 
-pub async fn handle(mut config: Config, mega: &mut mega::Client, _: Opts) -> Result<ExitCode> {
+pub async fn handle(mut config: Config, mega: &mut Arc<mega::Client>, _: Opts) -> Result<ExitCode> {
     let maybe_bar = USER_ATTENDED.then(|| {
         let bar = ProgressBar::new_spinner();
         bar.set_style(utils::terminal::spinner_style());
@@ -29,6 +30,7 @@ pub async fn handle(mut config: Config, mega: &mut mega::Client, _: Opts) -> Res
         bar
     });
 
+    let mega = Arc::get_mut(mega).context("could not mutably borrow MEGA client")?;
     mega.logout().await.context("could not log out from MEGA")?;
 
     if let Some(bar) = maybe_bar {

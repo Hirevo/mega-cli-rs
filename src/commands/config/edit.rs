@@ -25,7 +25,7 @@ impl Opts {
     }
 }
 
-pub async fn handle(_: Config, _: &mut mega::Client, opts: Opts) -> Result<ExitCode> {
+pub async fn handle(_: Config, _: &mega::Client, opts: Opts) -> Result<ExitCode> {
     let path = confy::get_configuration_file_path(CONFIG_NAME, None)?;
 
     let maybe_editor = (opts.editor.map(Ok))

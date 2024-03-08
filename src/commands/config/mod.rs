@@ -26,7 +26,7 @@ impl Command {
     }
 }
 
-pub async fn handle(config: Config, mega: &mut mega::Client, opts: Command) -> Result<ExitCode> {
+pub async fn handle(config: Config, mega: &mega::Client, opts: Command) -> Result<ExitCode> {
     match opts {
         Command::Path(opts) => path::handle(config, mega, opts).await,
         Command::Edit(opts) => edit::handle(config, mega, opts).await,

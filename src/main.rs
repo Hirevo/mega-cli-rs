@@ -1,10 +1,12 @@
 use std::process::ExitCode;
+use std::sync::Arc;
 use std::time::Duration;
 
 use clap::{Args, Parser};
 use color_eyre::eyre::Context;
 use console::style;
 use indicatif::ProgressBar;
+use url::Url;
 
 pub mod commands;
 pub mod config;
@@ -24,15 +26,36 @@ pub struct GlobalOpts {
     /// Whether to skip logging in to MEGA.
     #[arg(long)]
     anonymous: bool,
+    /// The API's origin.
+    #[arg(long)]
+    origin: Option<Url>,
+    /// The number of allowed retries.
+    #[arg(long)]
+    max_retries: Option<usize>,
+    /// The minimum amount of time between retries.
+    #[arg(long, value_parser(crate::serde_utils::duration::parse_duration))]
+    min_retry_delay: Option<Duration>,
+    /// The maximum amount of time between retries.
+    #[arg(long, value_parser(crate::serde_utils::duration::parse_duration))]
+    max_retry_delay: Option<Duration>,
+    /// The timeout duration to use for each request.
+    #[arg(long, value_parser(crate::serde_utils::duration::parse_duration))]
+    timeout: Option<Duration>,
+    /// Whether to use HTTPS for file downloads and uploads, instead of plain HTTP.
+    ///
+    /// Using plain HTTP for file transfers is fine because the file contents are already encrypted,
+    /// making protocol-level encryption a bit redundant and potentially slowing down the transfer.
+    #[arg(long)]
+    https: Option<bool>,
 }
 
 #[derive(Debug, Clone, PartialEq, Parser)]
 #[command(author, version, about, long_about = None, rename_all = "kebab-case")]
 pub struct Opts {
-    /// Global options.
+    /// Global options
     #[command(flatten)]
     global: GlobalOpts,
-    /// Application subcommands.
+    /// Application subcommands
     #[command(subcommand)]
     command: commands::Command,
 }
@@ -45,7 +68,10 @@ async fn main() -> ExitCode {
             let errors: Vec<_> = err.chain().collect();
 
             let [error, causes @ .., last] = errors.as_slice() else {
-                eprintln!("{0} `mega-cli` terminated due to an error", style("ERROR:").red());
+                eprintln!(
+                    "{0} `mega-cli` terminated due to an error",
+                    style("ERROR:").red()
+                );
                 eprintln!();
                 eprintln!("  {0} {err}", style('×').red());
                 return ExitCode::FAILURE;
@@ -77,17 +103,25 @@ async fn try_main() -> Result<ExitCode> {
         let http_client = reqwest::Client::new();
         match &config {
             Config::V1(config) => mega::Client::builder()
-                .origin(config.client.origin.clone())
-                .timeout(config.client.timeout)
-                .max_retries(config.client.max_retries)
-                .min_retry_delay(config.client.min_retry_delay)
-                .max_retry_delay(config.client.max_retry_delay)
-                .https(config.client.https)
+                .origin(opts.global.origin.unwrap_or(config.client.origin.clone()))
+                .timeout(opts.global.timeout.or(config.client.timeout))
+                .max_retries(opts.global.max_retries.unwrap_or(config.client.max_retries))
+                .min_retry_delay(
+                    opts.global
+                        .min_retry_delay
+                        .unwrap_or(config.client.min_retry_delay),
+                )
+                .max_retry_delay(
+                    opts.global
+                        .max_retry_delay
+                        .unwrap_or(config.client.max_retry_delay),
+                )
+                .https(opts.global.https.unwrap_or(config.client.https))
                 .build(http_client)?,
         }
     };
 
-    if opts.command.may_need_user_session() && !opts.global.anonymous {
+    if !opts.global.anonymous {
         match config {
             Config::V1(ref config) => {
                 if let Some(session) = config.auth.session.as_deref() {
@@ -110,6 +144,8 @@ async fn try_main() -> Result<ExitCode> {
             }
         };
     }
+
+    let mut mega = Arc::new(mega);
 
     let code = commands::handle(config, &mut mega, opts.command).await?;
 

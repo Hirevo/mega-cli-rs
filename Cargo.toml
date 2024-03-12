@@ -1,6 +1,6 @@
 [package]
 name = "mega-cli"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2021"
 authors = ["Nicolas Polomack <nicolas@polomack.eu>"]
 description = "A command-line tool for interacting with MEGA"

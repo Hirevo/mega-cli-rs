@@ -11,6 +11,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+### Changed
+
+### Fixed
+
+### Removed
+
+[0.1.1] - 2024-03-12
+--------------------
+
+### Added
+
 - Added `compare` subcommand
 - Added `--origin` global command-line option
 - Added `--max-retries` global command-line option
@@ -30,11 +41,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Download errors in `get` subcommand are no longer silent
 
-### Removed
-
-[0.1.0] - 2023-02-26
+[0.1.0] - 2023-06-17
 --------------------
 
 ### Added
 
-- Initial release.
+- Initial release

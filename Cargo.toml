@@ -11,7 +11,7 @@ categories = ["command-line-utilities", "web-programming", "web-programming::htt
 license = "MIT OR Apache-2.0"
 
 [dependencies]
-mega = "0.7.0"
+mega = "0.7.2"
 reqwest = "0.11.18"
 
 # Async runtime
@@ -29,6 +29,9 @@ shell-words = "1.1.0"
 
 # Error handling
 color-eyre = "0.6.2"
+
+# Logging
+tracing-subscriber = { version = "0.3.18", features = ["env-filter"] }
 
 # Async utils
 futures = "0.3.28"

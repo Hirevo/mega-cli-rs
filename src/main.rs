@@ -15,7 +15,7 @@ pub mod serde_utils;
 pub mod utils;
 
 use crate::config::{Config, CONFIG_NAME};
-use crate::utils::terminal::USER_ATTENDED;
+use crate::utils::terminal::{COLOR_ENABLED, USER_ATTENDED};
 
 pub type Error = color_eyre::Report;
 pub type Result<T, E = Error> = std::result::Result<T, E>;
@@ -62,6 +62,11 @@ pub struct Opts {
 
 #[tokio::main]
 async fn main() -> ExitCode {
+    tracing_subscriber::fmt()
+        .with_env_filter(tracing_subscriber::filter::EnvFilter::from_default_env())
+        .with_ansi(*COLOR_ENABLED)
+        .init();
+
     match try_main().await {
         Ok(code) => code,
         Err(err) => {

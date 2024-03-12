@@ -1,3 +1,4 @@
+use std::env;
 use std::fmt;
 
 use indicatif::style::ProgressStyle;
@@ -5,6 +6,10 @@ use indicatif::{DecimalBytes, ProgressState};
 use once_cell::sync::Lazy;
 
 pub static USER_ATTENDED: Lazy<bool> = Lazy::new(|| console::user_attended());
+pub static COLOR_ENABLED: Lazy<bool> = Lazy::new(|| {
+    let no_color = env::var("NO_COLOR").map_or(false, |value| !value.is_empty());
+    !no_color && *USER_ATTENDED
+});
 
 fn decimal_bytes_per_sec(state: &ProgressState, w: &mut dyn fmt::Write) {
     write!(w, "{0}/s", DecimalBytes(state.per_sec() as u64)).unwrap();

@@ -281,10 +281,7 @@ async fn download_file(
         }
     };
 
-    // TODO: this only handles panics, what about regular errors ?
-    while let Err(_err) = tokio::spawn(future()).await {
-        // dbg!(err);
-    }
+    tokio::spawn(future()).await??;
 
     if let Some(bar) = maybe_bar.as_ref() {
         bar.finish_and_clear();
@@ -456,10 +453,7 @@ async fn download_aggregate(
                         }
                     };
 
-                    // TODO: this only handles panics, what about regular errors ?
-                    while let Err(_err) = tokio::spawn(future()).await {
-                        // dbg!(err);
-                    }
+                    tokio::spawn(future()).await??;
 
                     let Some(bar) = maybe_bar else {
                         continue;

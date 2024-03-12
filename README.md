@@ -58,18 +58,18 @@ Supported Commands
   - [x] `path`: Display the path to the configuration file
   - [x] `edit`: Edit the configuration file with a text editor
 - [x] `get`: Download owned files from MEGA
-    - [x] Single file downloads
-    - [x] Recursive folder downloads
-    - [x] Parallel file downloads (during recursive folder downloads)
-    - [x] Supports public and password-protected links (using `-l|--link` and `-p|--password`).
+  - [x] Single file downloads
+  - [x] Recursive folder downloads
+  - [x] Parallel file downloads (during recursive folder downloads)
+  - [x] Supports public and password-protected links (using `-l|--link` and `-p|--password`)
 - [x] `put`: Upload files to MEGA
-    - [x] Single file uploads
-    - [ ] Recursive folder uploads
-    - [ ] Parallel file uploads (during recursive folder uploads)
+  - [x] Single file uploads
+  - [ ] Recursive folder uploads
+  - [ ] Parallel file uploads (during recursive folder uploads)
 - [x] `list`: List remote MEGA nodes
-  - [x] Supports public and password-protected links (using `-l|--link` and `-p|--password`).
+  - [x] Supports public and password-protected links (using `-l|--link` and `-p|--password`)
 - [x] `tree`: Display remote MEGA nodes recursively as a tree
-  - [x] Supports public and password-protected links (using `-l|--link` and `-p|--password`).
+  - [x] Supports public and password-protected links (using `-l|--link` and `-p|--password`)
 - [x] `mkdir`: Create folders within MEGA
 - [x] `rename`: Rename nodes within MEGA
 - [x] `delete`: Delete remote MEGA nodes

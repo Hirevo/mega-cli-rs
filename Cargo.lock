@@ -1046,9 +1046,9 @@ dependencies = [
 
 [[package]]
 name = "mega"
-version = "0.7.2"
+version = "0.7.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "8f6dd4094c072dae2f4e89fc3d3707008f2b66d0e3ba6b31f3591be58e64da63"
+checksum = "e8134641e687644e4ca9845764ee2abb69b5df7f8619eddb1ddc5da57cccfa95"
 dependencies = [
  "aes",
  "aes-gcm",

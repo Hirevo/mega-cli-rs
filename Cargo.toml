@@ -11,7 +11,7 @@ categories = ["command-line-utilities", "web-programming", "web-programming::htt
 license = "MIT OR Apache-2.0"
 
 [dependencies]
-mega = "0.7.2"
+mega = "0.7.3"
 reqwest = "0.11.18"
 
 # Async runtime

@@ -23,9 +23,12 @@ pub type Result<T, E = Error> = std::result::Result<T, E>;
 #[derive(Debug, Clone, PartialEq, Args)]
 #[command(rename_all = "kebab-case")]
 pub struct GlobalOpts {
-    /// Whether to skip logging in to MEGA.
+    /// Skip logging in to MEGA.
     #[arg(long)]
     anonymous: bool,
+    /// Disable TLS certificate verification.
+    #[arg(long)]
+    no_check_certificate: bool,
     /// The API's origin.
     #[arg(long)]
     origin: Option<Url>,
@@ -101,11 +104,13 @@ async fn main() -> ExitCode {
 async fn try_main() -> Result<ExitCode> {
     color_eyre::install()?;
 
-    let opts = Opts::parse();
+    let opts: Opts = Opts::parse();
     let config: Config = confy::load(CONFIG_NAME, None)?;
 
     let mut mega = {
-        let http_client = reqwest::Client::new();
+        let http_client = reqwest::Client::builder()
+            .danger_accept_invalid_certs(opts.global.no_check_certificate)
+            .build()?;
         match &config {
             Config::V1(config) => mega::Client::builder()
                 .origin(opts.global.origin.unwrap_or(config.client.origin.clone()))

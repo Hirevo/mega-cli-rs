@@ -11,6 +11,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Added `--no-check-certificate` global command-line option
+
 ### Changed
 
 ### Fixed

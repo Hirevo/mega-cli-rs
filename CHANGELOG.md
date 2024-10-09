@@ -11,13 +11,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Added support for RSA-encrypted nodes (like the ones received through public upload links).
-
 ### Changed
 
 ### Fixed
 
 ### Removed
+
+[0.1.3] - 2024-10-09
+--------------------
+
+### Added
+
+- Added support for RSA-encrypted nodes (like the ones received through public upload links).
 
 [0.1.2] - 2024-03-24
 --------------------

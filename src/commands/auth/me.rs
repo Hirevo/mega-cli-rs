@@ -42,16 +42,10 @@ pub async fn handle(_: Config, mega: &mega::Client, _: Opts) -> Result<ExitCode>
     crate::info!(to: std::io::stdout(), "email = `{0}`", user.email)?;
     crate::info!(to: std::io::stdout(), "first_name = `{0}`", user.first_name)?;
     crate::info!(to: std::io::stdout(), "last_name = `{0}`", user.last_name)?;
-    crate::info!(
-        to: std::io::stdout(),
-        "birth_date = `{0:?}`",
-        user.birth_date,
-    )?;
-    crate::info!(
-        to: std::io::stdout(),
-        "country_code = `{0}`",
-        user.country_code,
-    )?;
+    crate::info!(to: std::io::stdout(), "birth_date = `{0:?}`", user.birth_date)?;
+    if let Some(country_code) = user.country_code {
+        crate::info!(to: std::io::stdout(), "country_code = `{country_code}`")?;
+    }
 
     Ok(ExitCode::SUCCESS)
 }
